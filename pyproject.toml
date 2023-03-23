@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "customs-inspector"
-version = "0.2.0"
+version = "0.2.2"
 description = "Override Poetry's update command to audit packages before they are updated"
 authors = ["aarnav <aarnavbos@gmail.com>"]
 license = "GPL-3.0"
