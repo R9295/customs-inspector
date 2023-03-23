@@ -168,7 +168,7 @@ def raw():
     if not filename.endswith('.old') and not filename.endswith('.new') or '../' in filename:
         print(filename)
         raise Exception('Cannot read non Python files.')
-    path = Path(f'{diff_path}/{request.query.file}')
+    path = Path(f'{diff_path}/{filename}')
     return path.read_text()
 
 
