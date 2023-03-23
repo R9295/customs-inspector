@@ -4,6 +4,9 @@ Customs Inspector is a Python tool that hooks into Poetry's package management s
 to allow for manual auditing of package changes during updates. 
 When you run ``poetry update``, Customs Inspector will open a browser with a GitHub diff like view, requesting you to confirm or reject the update before proceeding.
 
+### Demo
+[YouTube](https://www.youtube.com/watch?v=OrNrUvW-7Cc)
+
 ## Note:
 TESTED ONLY ON Poetry ``v1.4.x``  
 This is a proof of concept. Poetry **explicitly** says to not use the plugin system to modify existing commands.
