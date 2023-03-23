@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "customs-inspector"
-version = "0.1.1"
+version = "0.2.0"
 description = "Override Poetry's update command to audit packages before they are updated"
 authors = ["aarnav <aarnavbos@gmail.com>"]
 license = "GPL-3.0"
@@ -10,7 +10,6 @@ packages = [{include = "customs_inspector"}]
 [tool.poetry.dependencies]
 python = "^3.7"
 poetry = "^1.4.0"
-jsonschema = "4.17.3"
 bottle = "^0.12.25"
 pygments = "^2.14.0"
 

@@ -1,9 +1,9 @@
 import difflib
 import glob
 import os
-import shutil
 import re
 import secrets
+import shutil
 import signal
 import webbrowser
 from pathlib import Path
@@ -55,6 +55,9 @@ def get_old_pkg_files(package_name: str, env):
             for file in glob.glob(f'{full_path}/**/*.py', recursive=True)
         ]
         return files, full_path
+    # TODO: some weird packages such as mypy-extensions do not have any module files
+    # the prompt will still show up but say 0 files changed, added, removed, unchanged
+    return [], ''
 
 
 def open_silently(path: str):
@@ -71,6 +74,7 @@ def generate_duplicates(old_lines, new_lines, filename):
     old_path.write_text(old_lines)
     new_path.write_text(new_lines)
 
+
 def get_new_pkg_files(archive, pkg_name):
     path = f'/tmp/{secrets.token_hex(24)}'
     ZipFile(archive).extractall(path)
@@ -83,17 +87,18 @@ def get_new_pkg_files(archive, pkg_name):
     ]
     return new_files, path
 
+
 def audit(old_pkg, archive, new_version, env):
     global diff
     global diff_path
     global pkg_name
     global old_pkg_version
     global new_pkg_version
-    pkg_name = old_pkg.complete_name
+    pkg_name = old_pkg.complete_name.replace('-', '_')
     old_pkg_version = old_pkg.version
     new_pkg_version = new_version
     old_files, old_files_path = get_old_pkg_files(pkg_name, env)
-    new_files, new_files_path = get_new_pkg_files(archive, pkg_name) 
+    new_files, new_files_path = get_new_pkg_files(archive, pkg_name)
     combined_files = set(new_files + old_files)
     diff_path = f'/tmp/{secrets.token_hex(24)}'
     for file in combined_files:
@@ -107,9 +112,7 @@ def audit(old_pkg, archive, new_version, env):
             diff['ADDED'].append(file)
         else:
             if (
-                difflib.SequenceMatcher(
-                    None, old.read(), new.read()
-                ).real_quick_ratio()
+                difflib.SequenceMatcher(None, old.read(), new.read()).real_quick_ratio()
                 == 1.0
             ):
                 old.seek(0)
@@ -128,14 +131,17 @@ def audit(old_pkg, archive, new_version, env):
     print(f'Please audit {pkg_name} before updating')
     webbrowser.open('http://localhost:7040')
     app.run(server=server)
-    shutil.rmtree(diff_path)
+    if len(combined_files) > 0:
+        shutil.rmtree(diff_path)
     if not result:
         raise Exception(
             f'{pkg_name} failed your audit! Please report it as a malicious package.'
         )
 
+
 app = Bottle()
 server = Server(port=7040)
+
 
 @app.route('/')
 def index():
@@ -165,7 +171,11 @@ def server_get_file():
 def raw():
     # TODO: does this suffieciently handle directory traversal?
     filename = request.query.file
-    if not filename.endswith('.old') and not filename.endswith('.new') or '../' in filename:
+    if (
+        not filename.endswith('.old')
+        and not filename.endswith('.new')
+        or '../' in filename
+    ):
         print(filename)
         raise Exception('Cannot read non Python files.')
     path = Path(f'{diff_path}/{filename}')

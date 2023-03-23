@@ -1,10 +1,14 @@
+import os
+import threading
+
 from cleo.commands.command import Command
 from poetry.installation.executor import Executor
 from poetry.installation.operations import Install, Update
 from poetry.plugins.application_plugin import ApplicationPlugin
-import os
+
 from customs_inspector.audit import audit
 
+semaphore = threading.Semaphore(1)
 
 # override Executor._install
 def overriden_install_func(self, operation: Update | Install):
@@ -39,6 +43,7 @@ def overriden_install_func(self, operation: Update | Install):
 
     try:
         if operation.job_type == "update":
+            semaphore.acquire()
             # Uninstall first
             # TODO: Make an uninstaller and find a way to rollback in case
             # the new package can't be installed
@@ -47,11 +52,13 @@ def overriden_install_func(self, operation: Update | Install):
                 operation.initial_package, archive, operation.package.version, self._env
             )
             self._remove(operation.initial_package)
+            semaphore.release()
 
         self._wheel_installer.install(archive)
     finally:
         if cleanup_archive:
             archive.unlink()
+
 
 class CustomsInspectorPlugin(ApplicationPlugin):
     def activate(self, application):

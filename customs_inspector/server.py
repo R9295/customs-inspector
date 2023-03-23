@@ -17,4 +17,5 @@ class Server(ServerAdapter):
         self.server.serve_forever()
 
     def stop(self):
+        self.server.server_close()
         self.server.shutdown()
