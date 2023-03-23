@@ -21,10 +21,14 @@ What if auditing was really easy to do so?
 What if, we could harness the community's collective effort to find malicious packages?
 
 ### Usage
-See: [how to install plugins](https://python-poetry.org/docs/master/plugins/#using-plugins)  
 ```
+# install the plugin
+poetry self add customs-inspector
+# run update like you normally would
 poetry update
 ```
+See: [how to install plugins](https://python-poetry.org/docs/master/plugins/#using-plugins)  
+
 ### Upcoming:
 - [ ] Increase speed
 - [ ] Add language server support to make auditing even easier
