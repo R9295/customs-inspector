@@ -1,0 +1,25 @@
+<div style="display:flex;justify-content:end;">
+<a href="/stop/?result=confirm"><button type="button">Confirm Update</button></a>
+<button id="dialog-trigger" type="button">Cancel Update</button>
+</div>
+<dialog id="dialog"> 
+<header>Resolve Audit</header>
+<form method="dialog">
+<h3>Are you sure you want to cancel?</h3>
+<div style="display:flex;justify-content:end;padding-top:10px"> 
+<a href="/stop/?result=cancel"><button type="button">Yes</button></a>
+<button id="close-modal">No</button> 
+</div> 
+</form> 
+</dialog>
+</body>
+<script>
+const dialog = document.getElementById("dialog")
+document.getElementById("dialog-trigger").onclick = () => {
+  dialog.showModal()
+}
+document.getElementById("close-modal").onclick = () => {
+    dialog.close()
+  }
+</script>
+</html>

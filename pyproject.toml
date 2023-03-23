@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "customs-inspector"
+version = "0.1.0"
+description = ""
+authors = ["aarnav <aarnavbos@gmail.com>"]
+license = "GPL-3.0"
+readme = "README.md"
+packages = [{include = "customs_inspector"}]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+poetry = "^1.4.0"
+jsonschema = "4.17.3"
+bottle = "^0.12.25"
+pygments = "^2.14.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.plugins."poetry.application.plugin"]
+customs-inspector = "customs_inspector.plugin:CustomsInspectorPlugin"

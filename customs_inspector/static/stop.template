@@ -1,0 +1,12 @@
+<div style="display:flex;justify-content:center;"><h3 id="result"></h3></div>
+<script>
+result = document.getElementById("result")
+if (window.location.search.endsWith("cancel")) {
+result.textContent = "🗙 Update was cancelled, please report this package as malicious!"
+} else {
+    result.textContent = "🗸 Update was confirmed, please return to your terminal."
+  }
+</script>
+
+</body>
+</html>

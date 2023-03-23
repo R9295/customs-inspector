@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link
+      rel="stylesheet"
+      data-name="vs/editor/editor.main"
+      href="/static/editor.main.css"
+    />
+    <style>
+      html,
+      body {
+        background-color: #1e1e1e;
+        margin: 0;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container" style="height: 100%"></div>
+
+    <script>
+      var require = { paths: { vs: "/static/vs" } };
+    </script>
+    <script src="/static/loader.js"></script>
+    <script src="/static/editor.main.nls.js"></script>
+    <script src="/static/editor.main.js"></script>
+    <script>
+      const path = `/raw/?file=${window.location.search.split("=")[1]}.`;
+      fetch(path + "old").then((data) => {
+        data.text().then((oldCode) => {
+          fetch(path + "new").then((data) => {
+            data.text().then((newCode) => {
+              const originalModel = monaco.editor.createModel(
+                oldCode,
+                "python"
+              );
+              const modifiedModel = monaco.editor.createModel(
+                newCode,
+                "python"
+              );
+              const diffEditor = monaco.editor.createDiffEditor(
+                document.getElementById("container")
+              );
+              monaco.editor.setTheme("vs-dark");
+              diffEditor.setModel({
+                original: originalModel,
+                modified: modifiedModel,
+              });
+              diffEditor.updateOptions({ readOnly: true });
+            });
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
