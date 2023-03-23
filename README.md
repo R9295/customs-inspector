@@ -19,9 +19,7 @@ What if, we could harness the community's collective effort to find malicious pa
 
 ### Usage
 See: [how to install plugins](https://python-poetry.org/docs/master/plugins/#using-plugins)  
-To update:
 ```
-pip install customs-inspector
 poetry update
 ```
 ### Upcoming:
