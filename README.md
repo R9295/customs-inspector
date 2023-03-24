@@ -46,3 +46,17 @@ Feedback, contributions and suggestions welcome.
 
 ### License
 GPL-3.0
+
+### Cite
+```
+@software{aarnav_2023_7766572,
+  author       = {Bos, Aarnav Mahavir},
+  title        = {R9295/customs-inspector: 0.2.2},
+  month        = mar,
+  year         = 2023,
+  publisher    = {Zenodo},
+  version      = {0.2.2},
+  doi          = {10.5281/zenodo.7766572},
+  url          = {https://doi.org/10.5281/zenodo.7766572}
+}
+```
