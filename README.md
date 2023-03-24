@@ -2,7 +2,7 @@
 ![](https://img.shields.io/github/commit-activity/w/R9295/customs-inspector?style=flat-square)
 ![](https://img.shields.io/github/issues/R9295/customs-inspector?style=flat-square)
 ![](https://img.shields.io/pypi/v/customs-inspector?style=flat-square)
-[![Downloads](https://pepy.tech/badge/customs-inspector/week)](https://pepy.tech/project/panoptisch)
+[![Downloads](https://pepy.tech/badge/customs-inspector/week)](https://pepy.tech/project/customs-inspector)
 ![](https://img.shields.io/pypi/format/customs-inspector?style=flat-square)
 ![](https://img.shields.io/badge/code%20style-black-000000.svg)
 
