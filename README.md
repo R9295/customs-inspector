@@ -5,6 +5,7 @@
 [![Downloads](https://pepy.tech/badge/customs-inspector/week)](https://pepy.tech/project/panoptisch)
 ![](https://img.shields.io/pypi/format/customs-inspector?style=flat-square)
 ![](https://img.shields.io/badge/code%20style-black-000000.svg)
+
 Customs Inspector is a Python tool that hooks into Poetry's package management system 
 to allow for manual auditing of package changes during updates. 
 When you run ``poetry update``, Customs Inspector will open a browser with a GitHub diff like view, requesting you to confirm or reject the update before proceeding.
